@@ -1,86 +1,86 @@
 var deck = {
   cards: [{
       id: 1,
-      suit: 'Land',
-      name: 'Mountain',
+      suit: 'Terrain',
+      name: 'Montagne',
       strength: 9,
-      bonus: '+50 with both <span class="weather">Smoke</span> and <span class="flame">Wildfire</span>. <br />CLEARS the Penalty on all <span class="flood">Floods</span>.',
+      bonus: '+50 avec la <span class="weather">Fumée</span> et le <span class="flame">Feu de Forêt</span>. <br />EFFACE le malus de toutes les <span class="flood">Vagues</span>.',
       penalty: null,
       bonusScore: function(hand) {
-        return hand.contains('Smoke') && hand.contains('Wildfire') ? 50 : 0;
+        return hand.contains('Fumée') && hand.contains('Feu de Forêt') ? 50 : 0;
       },
       clearsPenalty: function(card) {
-        return card.suit === 'Flood';
+        return card.suit === 'Vague';
       },
-      relatedSuits: ['Flood'],
-      relatedCards: ['Smoke', 'Wildfire']
+      relatedSuits: ['Vague'],
+      relatedCards: ['Fumée', 'Feu de Forêt']
     },
     {
       id: 2,
-      suit: 'Land',
-      name: 'Cavern',
+      suit: 'Terrain',
+      name: 'Caverne',
       strength: 6,
-      bonus: '+25 with <span class="army">Dwarvish Infantry</span> or <span class="beast">Dragon</span>. <br />CLEARS the Penalty on all <span class="weather">Weather</span>.',
+      bonus: '+25 avec l\'<span class="army">Infanterie Naine</span> ou le <span class="beast">Dragon</span>. <br />EFFACE le malus de tous les <span class="weather">Climats</span>.',
       penalty: null,
       bonusScore: function(hand) {
-        return hand.contains('Dwarvish Infantry') || hand.contains('Dragon') ? 25 : 0;
+        return hand.contains('Infanterie Naine') || hand.contains('Dragon') ? 25 : 0;
       },
       clearsPenalty: function(card) {
-        return card.suit === 'Weather';
+        return card.suit === 'Climat';
       },
-      relatedSuits: ['Weather'],
-      relatedCards: ['Dwarvish Infantry', 'Dragon']
+      relatedSuits: ['Climat'],
+      relatedCards: ['Infanterie Naine', 'Dragon']
     },
     {
       id: 3,
-      suit: 'Land',
-      name: 'Bell Tower',
+      suit: 'Terrain',
+      name: 'Beffroi',
       strength: 8,
-      bonus: '+15 with any one <span class="wizard">Wizard</span>.',
+      bonus: '+15 avec n\'importe quel <span class="wizard">Sorcier</span>.',
       penalty: null,
       bonusScore: function(hand) {
-        return hand.containsSuit('Wizard') ? 15 : 0;
+        return hand.containsSuit('Sorcier') ? 15 : 0;
       },
-      relatedSuits: ['Wizard'],
+      relatedSuits: ['Sorcier'],
       relatedCards: []
     },
     {
       id: 4,
-      suit: 'Land',
-      name: 'Forest',
+      suit: 'Terrain',
+      name: 'Forêt',
       strength: 7,
-      bonus: '+12 for each <span class="beast">Beast</span> and <span class="army">Elven Archers</span>.',
+      bonus: '+12 pour les <span class="army">Archers Elfes</span> et pour chaque <span class="beast">Créature</span>.',
       penalty: null,
       bonusScore: function(hand) {
-        return 12 * hand.countSuit('Beast') + (hand.contains('Elven Archers') ? 12 : 0);
+        return 12 * hand.countSuit('Créature') + (hand.contains('Archers Elfes') ? 12 : 0);
       },
-      relatedSuits: ['Beast'],
-      relatedCards: ['Elven Archers']
+      relatedSuits: ['Créature'],
+      relatedCards: ['Archers Elfes']
     },
     {
       id: 5,
-      suit: 'Land',
-      name: 'Earth Elemental',
+      suit: 'Terrain',
+      name: 'Élémental de Terre',
       strength: 4,
-      bonus: '+15 for each other <span class="land">Land</span>.',
+      bonus: '+15 pour chaque autre <span class="land">Terrain</span>.',
       penalty: null,
       bonusScore: function(hand) {
-        return 15 * hand.countSuitExcluding('Land', this.id);
+        return 15 * hand.countSuitExcluding('Terrain', this.id);
       },
-      relatedSuits: ['Land'],
+      relatedSuits: ['Terrain'],
       relatedCards: []
     },
     {
       id: 6,
-      suit: 'Flood',
-      name: 'Fountain of Life',
+      suit: 'Vague',
+      name: 'Source de Vie',
       strength: 1,
-      bonus: 'Add the base strength of any one <span class="weapon">Weapon</span>, <span class="flood">Flood</span>, <span class="flame">Flame</span>, <span class="land">Land</span> or <span class="weather">Weather</span> in your hand.',
+      bonus: 'Ajoutez la force de base de n\'importe quel <span class="land">Terrain</span>, <span class="weapon">Arme</span>, <span class="flood">Vague</span>, <span class="flame">Flamme</span> ou <span class="weather">Climat</span> de votre main.',
       penalty: null,
       bonusScore: function(hand) {
         var max = 0;
         for (const card of hand.nonBlankedCards()) {
-          if (card.suit === 'Weapon' || card.suit === 'Flood' || card.suit === 'Flame' || card.suit === 'Land' || card.suit === 'Weather') {
+          if (card.suit === 'Arme' || card.suit === 'Vague' || card.suit === 'Flamme' || card.suit === 'Terrain' || card.suit === 'Climat') {
             if (card.strength > max) {
               max = card.strength;
             }
@@ -88,282 +88,282 @@ var deck = {
         }
         return max;
       },
-      relatedSuits: ['Weapon', 'Flood', 'Flame', 'Land', 'Weather'],
+      relatedSuits: ['Arme', 'Vague', 'Flamme', 'Terrain', 'Climat'],
       relatedCards: []
     },
     {
       id: 7,
-      suit: 'Flood',
-      name: 'Swamp',
+      suit: 'Vague',
+      name: 'Marécage',
       strength: 18,
       bonus: null,
-      penalty: '-3 for each <span class="army">Army</span> and <span class="flame">Flame</span>.',
+      penalty: '-3 pour chaque <span class="army">Armée</span> et <span class="flame">Flamme</span>.',
       penaltyScore: function(hand) {
-        var penaltyCards = hand.countSuit('Flame');
-        if (!(hand.containsId(25) || hand.containsId(41))) { // these clear the word 'Army' from the penalty
-          penaltyCards += hand.countSuit('Army');
+        var penaltyCards = hand.countSuit('Flamme');
+        if (!(hand.containsId(25) || hand.containsId(41))) { // these clear the word 'Armée' from the penalty
+          penaltyCards += hand.countSuit('Armée');
         }
         return -3 * penaltyCards;
       },
-      relatedSuits: ['Army', 'Flame'],
+      relatedSuits: ['Armée', 'Flamme'],
       relatedCards: []
     },
     {
       id: 8,
-      suit: 'Flood',
-      name: 'Great Flood',
+      suit: 'Vague',
+      name: 'Inondation',
       strength: 32,
       bonus: null,
-      penalty: 'BLANKS all <span class="army">Armies</span>, all <span class="land">Lands</span> except <span class="land">Mountain</span>, and all <span class="flame">Flames</span> except <span class="flame">Lightning</span>.',
+      penalty: 'MASQUE toutes les <span class="army">Armées</span>, tous les <span class="land">Terrains</span> sauf la <span class="land">Montagne</span>, et toutes les <span class="flame">Flammes</span> sauf l\'<span class="flame">Éclair</span>.',
       blanks: function(card, hand) {
-        return (card.suit === 'Army' && !(hand.containsId(25) || hand.containsId(41))) || // these clear the word 'Army' from the penalty
-          (card.suit === 'Land' && card.name !== 'Mountain') ||
-          (card.suit === 'Flame' && card.name !== 'Lightning');
+        return (card.suit === 'Armée' && !(hand.containsId(25) || hand.containsId(41))) || // these clear the word 'Armée' from the penalty
+          (card.suit === 'Terrain' && card.name !== 'Montagne') ||
+          (card.suit === 'Flamme' && card.name !== 'Éclair');
       },
-      relatedSuits: ['Army', 'Land', 'Flame'],
-      relatedCards: ['Mountain', 'Lightning']
+      relatedSuits: ['Armée', 'Terrain', 'Flamme'],
+      relatedCards: ['Montagne', 'Éclair']
     },
     {
       id: 9,
-      suit: 'Flood',
-      name: 'Island',
+      suit: 'Vague',
+      name: 'Île',
       strength: 14,
-      bonus: 'CLEARS the Penalty on any one <span class="flood">Flood</span> or <span class="flame">Flame</span>.',
+      bonus: 'EFFACE les malus de n\'importe quelle <span class="flood">Vague</span> ou <span class="flame">Flamme</span>.',
       penalty: null,
-      action: 'Pick a Flood or Flame from your hand to clear.',
-      relatedSuits: ['Flood', 'Flame'],
+      action: 'Choisissez une Vague ou une Flame de votre main.',
+      relatedSuits: ['Vague', 'Flamme'],
       relatedCards: []
     },
     {
       id: 10,
-      suit: 'Flood',
-      name: 'Water Elemental',
+      suit: 'Vague',
+      name: 'Élémental d\'eau',
       strength: 4,
-      bonus: '+15 for each other <span class="flood">Flood</span>.',
+      bonus: '+15 pour chaque autre <span class="flood">Vague</span>.',
       penalty: null,
       bonusScore: function(hand) {
-        return 15 * hand.countSuitExcluding('Flood', this.id);
+        return 15 * hand.countSuitExcluding('Vague', this.id);
       },
-      relatedSuits: ['Flood'],
+      relatedSuits: ['Vague'],
       relatedCards: []
     },
     {
       id: 11,
-      suit: 'Weather',
-      name: 'Rainstorm',
+      suit: 'Climat',
+      name: 'Orage',
       strength: 8,
-      bonus: '+10 for each <span class="flood">Flood</span>.',
-      penalty: 'BLANKS all <span class="flame">Flames</span> except <span class="flame">Lightning</span>.',
+      bonus: '+10 pour chaque autre <span class="flood">Vague</span>.',
+      penalty: 'MASQUE toutes les <span class="flame">Flammes</span> sauf l\'<span class="flame">Éclair</span>.',
       bonusScore: function(hand) {
-        return 10 * hand.countSuit('Flood');
+        return 10 * hand.countSuit('Vague');
       },
       blanks: function(card, hand) {
-        return card.suit === 'Flame' && card.name !== 'Lightning';
+        return card.suit === 'Flamme' && card.name !== 'Éclair';
       },
-      relatedSuits: ['Flood', 'Flame'],
-      relatedCards: ['Lightning']
+      relatedSuits: ['Vague', 'Flamme'],
+      relatedCards: ['Éclair']
     },
     {
       id: 12,
-      suit: 'Weather',
+      suit: 'Climat',
       name: 'Blizzard',
       strength: 30,
       bonus: null,
-      penalty: 'BLANKS all <span class="flood">Floods</span>. <br />-5 for each <span class="army">Army</span>, <span class="leader">Leader</span>, <span class="beast">Beast</span>, and <span class="flame">Flame</span>.',
+      penalty: 'MASQUE toutes les <span class="flood">Vagues</span>. <br />-5 pour chaque <span class="army">Armée</span>, <span class="leader">Seigneur</span>, <span class="beast">Créature</span>, et <span class="flame">Flamme</span>.',
       penaltyScore: function(hand) {
-        var penaltyCards = hand.countSuit('Leader') + hand.countSuit('Beast') + hand.countSuit('Flame');
-        if (!hand.containsId(25)) { // clears the word 'Army' from the penalty
-          penaltyCards += hand.countSuit('Army');
+        var penaltyCards = hand.countSuit('Seigneur') + hand.countSuit('Créature') + hand.countSuit('Flamme');
+        if (!hand.containsId(25)) { // clears the word 'Armée' from the penalty
+          penaltyCards += hand.countSuit('Armée');
         }
         return -5 * penaltyCards;
       },
       blanks: function(card, hand) {
-        return card.suit === 'Flood';
+        return card.suit === 'Vague';
       },
-      relatedSuits: ['Leader', 'Beast', 'Flame', 'Army', 'Flood'],
+      relatedSuits: ['Seigneur', 'Créature', 'Flamme', 'Armée', 'Vague'],
       relatedCards: []
     },
     {
       id: 13,
-      suit: 'Weather',
-      name: 'Smoke',
+      suit: 'Climat',
+      name: 'Fumée',
       strength: 27,
       bonus: null,
-      penalty: 'This card is BLANKED unless with at least one <span class="flame">Flame</span>.',
+      penalty: 'Cette carte est MASQUÉE sauf avec au moins une <span class="flame">Flamme</span>.',
       blankedIf: function(hand) {
-        return !hand.containsSuit('Flame');
+        return !hand.containsSuit('Flamme');
       },
-      relatedSuits: ['Flame'],
+      relatedSuits: ['Flamme'],
       relatedCards: []
     },
     {
       id: 14,
-      suit: 'Weather',
-      name: 'Whirlwind',
+      suit: 'Climat',
+      name: 'Tornade',
       strength: 13,
-      bonus: '+40 with <span class="weather">Rainstorm</span> and either <span class="weather">Blizzard</span> or <span class="flood">Great Flood</span>.',
+      bonus: '+40 avec l\'<span class="weather">Orage</span> et soit le <span class="weather">Blizzard</span>, soit l\'<span class="flood">Inondation</span>.',
       penalty: null,
       bonusScore: function(hand) {
-        return hand.contains('Rainstorm') && (hand.contains('Blizzard') || hand.contains('Great Flood')) ? 40 : 0;
+        return hand.contains('Orage') && (hand.contains('Blizzard') || hand.contains('Inondation')) ? 40 : 0;
       },
-      relatedSuits: ['Rainstorm'],
-      relatedCards: ['Blizzard', 'Great Flood']
+      relatedSuits: ['Orage'],
+      relatedCards: ['Blizzard', 'Inondation']
     },
     {
       id: 15,
-      suit: 'Weather',
-      name: 'Air Elemental',
+      suit: 'Climat',
+      name: 'Élémental d\'Air',
       strength: 4,
-      bonus: '+15 for each other <span class="weather">Weather</span>.',
+      bonus: '+15 pour chaque autre <span class="weather">Climat</span>.',
       penalty: null,
       bonusScore: function(hand) {
-        return 15 * hand.countSuitExcluding('Weather', this.id);
+        return 15 * hand.countSuitExcluding('Climat', this.id);
       },
-      relatedSuits: ['Weather'],
+      relatedSuits: ['Climat'],
       relatedCards: []
     },
     {
       id: 16,
-      suit: 'Flame',
-      name: 'Wildfire',
+      suit: 'Flamme',
+      name: 'Feu de Forêt',
       strength: 40,
       bonus: null,
-      penalty: 'BLANKS all cards except <span class="flame">Flames</span>, <span class="wizard">Wizards</span>, <span class="weather">Weather</span>, <span class="weapon">Weapons</span>, <span class="artifact">Artifacts</span>, <span class="land">Mountain</span>, <span class="flood">Great Flood</span>, <span class="flood">Island</span>, <span class="beast">Unicorn</span> and <span class="beast">Dragon</span>.',
+      penalty: 'MASQUE toutes les cartes sauf les <span class="flame">Flammes</span>, les <span class="wizard">Sorciers</span>, les <span class="weather">Climats</span>, les <span class="weapon">Armes</span>, les <span class="artifact">Artéfacts</span>, la <span class="land">Montagne</span>, l\'<span class="flood">Inondation</span>, l\'<span class="flood">Île</span>, la <span class="beast">Licorne</span> et le <span class="beast">Dragon</span>.',
       blanks: function(card, hand) {
-        return !(card.suit === 'Flame' || card.suit === 'Wizard' || card.suit === 'Weather' ||
-          card.suit === 'Weapon' || card.suit === 'Artifact' || card.suit === 'Wild' || card.name === 'Mountain' ||
-          card.name === 'Great Flood' || card.name === 'Island' || card.name === 'Unicorn' || card.name === 'Dragon');
+        return !(card.suit === 'Flamme' || card.suit === 'Sorcier' || card.suit === 'Climat' ||
+          card.suit === 'Arme' || card.suit === 'Artéfact' || card.suit === 'Joker' || card.name === 'Montagne' ||
+          card.name === 'Inondation' || card.name === 'Île' || card.name === 'Licorne' || card.name === 'Dragon');
       },
       relatedSuits: allSuits(),
-      relatedCards: ['Mountain', 'Great Flood', 'Island', 'Unicorn', 'Dragon']
+      relatedCards: ['Montagne', 'Inondation', 'Île', 'Licorne', 'Dragon']
     },
     {
       id: 17,
-      suit: 'Flame',
-      name: 'Candle',
+      suit: 'Flamme',
+      name: 'Chandelle',
       strength: 2,
-      bonus: '+100 with <span class="artifact">Book of Changes</span>, <span class="land">Bell Tower</span>, and any one <span class="wizard">Wizard</span>.',
+      bonus: '+100 avec le <span class="artifact">Livre des Mutations</span>, le <span class="land">Beffroi</span> et n\'importe quel <span class="wizard">Sorcier</span>.',
       penalty: null,
       bonusScore: function(hand) {
-        return hand.contains('Book of Changes') && hand.contains('Bell Tower') && hand.containsSuit('Wizard') ? 100 : 0;
+        return hand.contains('Livre des Mutations') && hand.contains('Beffroi') && hand.containsSuit('Sorcier') ? 100 : 0;
       },
-      relatedSuits: ['Wizard'],
-      relatedCards: ['Book of Changes', 'Bell Tower']
+      relatedSuits: ['Sorcier'],
+      relatedCards: ['Livre des Mutations', 'Beffroi']
     },
     {
       id: 18,
-      suit: 'Flame',
+      suit: 'Flamme',
       name: 'Forge',
       strength: 9,
-      bonus: '+9 for each <span class="weapon">Weapon</span> and <span class="artifact">Artifact</span>.',
+      bonus: '+9 pour chaque <span class="weapon">Arme</span> et chaque <span class="artifact">Artéfact</span>.',
       penalty: null,
       bonusScore: function(hand) {
-        return 9 * (hand.countSuit('Weapon') + hand.countSuit('Artifact'));
+        return 9 * (hand.countSuit('Arme') + hand.countSuit('Artéfact'));
       },
-      relatedSuits: ['Weapon', 'Artifact'],
+      relatedSuits: ['Arme', 'Artéfact'],
       relatedCards: []
     },
     {
       id: 19,
-      suit: 'Flame',
-      name: 'Lightning',
+      suit: 'Flamme',
+      name: 'Éclair',
       strength: 11,
-      bonus: '+30 with <span class="weather">Rainstorm</span>.',
+      bonus: '+30 avec l\'<span class="weather">Orage</span>.',
       penalty: null,
       bonusScore: function(hand) {
-        return hand.contains('Rainstorm') ? 30 : 0;
+        return hand.contains('Orage') ? 30 : 0;
       },
       relatedSuits: [],
-      relatedCards: ['Rainstorm']
+      relatedCards: ['Orage']
     },
     {
       id: 20,
-      suit: 'Flame',
-      name: 'Fire Elemental',
+      suit: 'Flamme',
+      name: 'Élémental de Feu',
       strength: 4,
-      bonus: '+15 for each other <span class="flame">Flame</span>.',
+      bonus: '+15 pour chaque autre <span class="flame">Flamme</span>.',
       penalty: null,
       bonusScore: function(hand) {
-        return 15 * hand.countSuitExcluding('Flame', this.id);
+        return 15 * hand.countSuitExcluding('Flamme', this.id);
       },
-      relatedSuits: ['Flame'],
+      relatedSuits: ['Flamme'],
       relatedCards: []
     },
     {
       id: 21,
-      suit: 'Army',
-      name: 'Knights',
+      suit: 'Armée',
+      name: 'Chevaliers',
       strength: 20,
       bonus: null,
-      penalty: '-8 unless with at least one <span class="leader">Leader</span>.',
+      penalty: '-8 sauf avec au moins un <span class="leader">Seigneur</span>.',
       penaltyScore: function(hand) {
-        return hand.containsSuit('Leader') ? 0 : -8;
+        return hand.containsSuit('Seigneur') ? 0 : -8;
       },
-      relatedSuits: ['Leader'],
+      relatedSuits: ['Seigneur'],
       relatedCards: []
     },
     {
       id: 22,
-      suit: 'Army',
-      name: 'Elven Archers',
+      suit: 'Armée',
+      name: 'Archers Elfes',
       strength: 10,
-      bonus: '+5 if no <span class="weather">Weather</span>.',
+      bonus: '+5 si vous n\'avez pas de <span class="weather">Climat</span>.',
       penalty: null,
       bonusScore: function(hand) {
-        return hand.containsSuit('Weather') ? 0 : 5;
+        return hand.containsSuit('Climat') ? 0 : 5;
       },
-      relatedSuits: ['Weather'],
+      relatedSuits: ['Climat'],
       relatedCards: []
     },
     {
       id: 23,
-      suit: 'Army',
-      name: 'Light Cavalry',
+      suit: 'Armée',
+      name: 'Cavalerie Légère',
       strength: 17,
       bonus: null,
-      penalty: '-2 for each <span class="land">Land</span>.',
+      penalty: '-2 pour chaque <span class="land">Terrain</span>.',
       penaltyScore: function(hand) {
-        return -2 * hand.countSuit('Land');
+        return -2 * hand.countSuit('Terrain');
       },
-      relatedSuits: ['Land'],
+      relatedSuits: ['Terrain'],
       relatedCards: []
 
     },
     {
       id: 24,
-      suit: 'Army',
-      name: 'Dwarvish Infantry',
+      suit: 'Armée',
+      name: 'Infanterie Naine',
       strength: 15,
       bonus: null,
-      penalty: '-2 for each other <span class="army">Army</span>.',
+      penalty: '-2 pour chaque autre <span class="army">Armée</span>.',
       penaltyScore: function(hand) {
-        if (!hand.containsId(25)) { // clears the word 'Army' from the penalty
-          return -2 * hand.countSuitExcluding('Army', this.id);
+        if (!hand.containsId(25)) { // clears the word 'Armée' from the penalty
+          return -2 * hand.countSuitExcluding('Armée', this.id);
         }
         return 0;
       },
-      relatedSuits: ['Army'],
+      relatedSuits: ['Armée'],
       relatedCards: []
     },
     {
       id: 25,
-      suit: 'Army',
-      name: 'Rangers',
+      suit: 'Armée',
+      name: 'Éclaireurs',
       strength: 5,
-      bonus: '+10 for each <span class="land">Land</span>. <br />CLEARS the word <span class="army">Army</span> from all Penalties.',
+      bonus: '+10 pour chaque <span class="land">Terrain</span>. <br />EFFACE le mot <span class="army">Armée</span> de tous les malus.',
       penalty: null,
       bonusScore: function(hand) {
-        return 10 * hand.countSuit('Land');
+        return 10 * hand.countSuit('Terrain');
       },
-      relatedSuits: ['Land', 'Army'],
+      relatedSuits: ['Terrain', 'Armée'],
       relatedCards: []
     },
     {
       id: 26,
-      suit: 'Wizard',
-      name: 'Collector',
+      suit: 'Sorcier',
+      name: 'Collectionneur',
       strength: 7,
-      bonus: '+10 if three different cards in same suit, +40 if four different cards in same suit, +100 if five different cards in same suit.',
+      bonus: '+10 si vous avez trois cartes différentes de la même famille, +40 si vous avez quatre cartes différentes de la même famille, +100 si vous avez cinq cartes différentes de la même famille.',
       penalty: null,
       bonusScore: function(hand) {
         var bySuit = {};
@@ -392,281 +392,281 @@ var deck = {
     },
     {
       id: 27,
-      suit: 'Wizard',
-      name: 'Beastmaster',
+      suit: 'Sorcier',
+      name: 'Dresseur',
       strength: 9,
-      bonus: '+9 for each <span class="beast">Beast</span>. <br />CLEARS the Penalty on all <span class="beast">Beasts</span>.',
+      bonus: '+9 pour chaque <span class="beast">Créature</span>. <br />EFFACE les malus de toutes les <span class="beast">Créatures</span>.',
       penalty: null,
       bonusScore: function(hand) {
-        return 9 * hand.countSuit('Beast');
+        return 9 * hand.countSuit('Créature');
       },
       clearsPenalty: function(card) {
-        return card.suit === 'Beast';
+        return card.suit === 'Créature';
       },
-      relatedSuits: ['Beast'],
+      relatedSuits: ['Créature'],
       relatedCards: []
     },
     {
       id: 28,
-      suit: 'Wizard',
-      name: 'Necromancer',
+      suit: 'Sorcier',
+      name: 'Nécromancien',
       strength: 3,
-      bonus: 'At the end of the game, you may take one <span class="army">Army</span>, <span class="leader">Leader</span>, <span class="wizard">Wizard</span>, or <span class="beast">Beast</span> from the discard pile and add it to your hand as an eighth card.',
+      bonus: 'À la fin de la partie, vous pouvez prendre une <span class="army">Armée</span>, un <span class="leader">Seigneur</span>, un <span class="wizard">Sorcier</span>, ou une <span class="beast">Créature</span> de la défausse et l\'ajouter à votre main comme huitième carte.',
       penalty: null,
-      relatedSuits: ['Army', 'Leader', 'Wizard', 'Beast'],
+      relatedSuits: ['Armée', 'Seigneur', 'Sorcier', 'Créature'],
       relatedCards: []
     },
     {
       id: 29,
-      suit: 'Wizard',
-      name: 'Warlock Lord',
+      suit: 'Sorcier',
+      name: 'Démoniste',
       strength: 25,
       bonus: null,
-      penalty: '-10 for each <span class="leader">Leader</span> and other <span class="wizard">Wizard</span>.',
+      penalty: '-10 pour chaque <span class="leader">Seigneur</span> et chaque autre <span class="wizard">Sorcier</span>.',
       penaltyScore: function(hand) {
-        return -10 * (hand.countSuit('Leader') + hand.countSuitExcluding('Wizard', this.id));
+        return -10 * (hand.countSuit('Seigneur') + hand.countSuitExcluding('Sorcier', this.id));
       },
-      relatedSuits: ['Leader', 'Wizard'],
+      relatedSuits: ['Seigneur', 'Sorcier'],
       relatedCards: []
     },
     {
       id: 30,
-      suit: 'Wizard',
-      name: 'Enchantress',
+      suit: 'Sorcier',
+      name: 'Enchanteresse',
       strength: 5,
-      bonus: '+5 for each <span class="land">Land</span>, <span class="weather">Weather</span>, <span class="flood">Flood</span>, and <span class="flame">Flame</span>.',
+      bonus: '+5 pour chaque <span class="land">Terrain</span>, <span class="weather">Climat</span>, <span class="flood">Vague</span> et <span class="flame">Flamme</span>.',
       penalty: null,
       bonusScore: function(hand) {
-        return 5 * (hand.countSuit('Land') + hand.countSuit('Weather') + hand.countSuit('Flood') + hand.countSuit('Flame'));
+        return 5 * (hand.countSuit('Terrain') + hand.countSuit('Climat') + hand.countSuit('Vague') + hand.countSuit('Flamme'));
       },
-      relatedSuits: ['Land', 'Weather', 'Flood', 'Flame'],
+      relatedSuits: ['Terrain', 'Climat', 'Vague', 'Flamme'],
       relatedCards: []
     },
     {
       id: 31,
-      suit: 'Leader',
-      name: 'King',
+      suit: 'Seigneur',
+      name: 'Roi',
       strength: 8,
-      bonus: '+5 for each <span class="army">Army</span>. <br />OR +20 for each <span class="army">Army</span> if with <span class="leader">Queen</span>.',
+      bonus: '+5 pour chaque <span class="army">Armée</span>. <br />OU Avec la <span class="leader">Reine</span>, +20 pour chaque <span class="army">Armée</span>.',
       penalty: null,
       bonusScore: function(hand) {
-        return (hand.contains('Queen') ? 20 : 5) * hand.countSuit('Army');
+        return (hand.contains('Reine') ? 20 : 5) * hand.countSuit('Armée');
       },
-      relatedSuits: ['Army'],
-      relatedCards: ['Queen']
+      relatedSuits: ['Armée'],
+      relatedCards: ['Reine']
     },
     {
       id: 32,
-      suit: 'Leader',
-      name: 'Queen',
+      suit: 'Seigneur',
+      name: 'Reine',
       strength: 6,
-      bonus: '+5 for each <span class="army">Army</span>. <br />OR +20 for each <span class="army">Army</span> if with <span class="leader">King</span>.',
+      bonus: '+5 pour chaque <span class="army">Armée</span>. <br />OU Avec le <span class="leader">Roi</span> +20 pour chaque <span class="army">Armée</span>.',
       penalty: null,
       bonusScore: function(hand) {
-        return (hand.contains('King') ? 20 : 5) * hand.countSuit('Army');
+        return (hand.contains('Roi') ? 20 : 5) * hand.countSuit('Armée');
       },
-      relatedSuits: ['Army'],
-      relatedCards: ['King']
+      relatedSuits: ['Armée'],
+      relatedCards: ['Roi']
     },
     {
       id: 33,
-      suit: 'Leader',
-      name: 'Princess',
+      suit: 'Seigneur',
+      name: 'Princesse',
       strength: 2,
-      bonus: '+8 for each <span class="army">Army</span>, <span class="wizard">Wizard</span>, and other <span class="leader">Leader</span>.',
+      bonus: '+8 pour chaque <span class="army">Armée</span>, <span class="wizard">Sorcier</span>, et chaque autre <span class="leader">Seigneur</span>.',
       penalty: null,
       bonusScore: function(hand) {
-        return 8 * (hand.countSuit('Army') + hand.countSuit('Wizard') + hand.countSuitExcluding('Leader', this.id));
+        return 8 * (hand.countSuit('Armée') + hand.countSuit('Sorcier') + hand.countSuitExcluding('Seigneur', this.id));
       },
-      relatedSuits: ['Army', 'Wizard', 'Leader'],
+      relatedSuits: ['Armée', 'Sorcier', 'Seigneur'],
       relatedCards: []
     },
     {
       id: 34,
-      suit: 'Leader',
-      name: 'Warlord',
+      suit: 'Seigneur',
+      name: 'Chef de Guerre',
       strength: 4,
-      bonus: 'The sum of the base strength of all <span class="army">Armies</span>.',
+      bonus: 'La somme de toutes les forces de base de toutes les <span class="army">Armées</span>.',
       penalty: null,
       bonusScore: function(hand) {
         var total = 0;
         for (const card of hand.nonBlankedCards()) {
-          if (card.suit === 'Army') {
+          if (card.suit === 'Armée') {
             total += card.strength;
           }
         }
         return total;
       },
-      relatedSuits: ['Army'],
+      relatedSuits: ['Armée'],
       relatedCards: []
     },
     {
       id: 35,
-      suit: 'Leader',
-      name: 'Empress',
+      suit: 'Seigneur',
+      name: 'Impératrice',
       strength: 15,
-      bonus: '+10 for each <span class="army">Army</span>.',
-      penalty: '-5 for each other <span class="leader">Leader</span>.',
+      bonus: '+10 pour chaque <span class="army">Armée</span>.',
+      penalty: '-5 pour chaque autre <span class="leader">Seigneur</span>.',
       bonusScore: function(hand) {
-        return 10 * hand.countSuit('Army');
+        return 10 * hand.countSuit('Armée');
       },
       penaltyScore: function(hand) {
-        return -5 * hand.countSuitExcluding('Leader', this.id);
+        return -5 * hand.countSuitExcluding('Seigneur', this.id);
       },
-      relatedSuits: ['Army', 'Leader'],
+      relatedSuits: ['Armée', 'Seigneur'],
       relatedCards: []
     },
     {
       id: 36,
-      suit: 'Beast',
-      name: 'Unicorn',
+      suit: 'Créature',
+      name: 'Licorne',
       strength: 9,
-      bonus: '+30 with <span class="leader">Princess</span>. <br />OR +15 with <span class="leader">Empress</span>, <span class="leader">Queen</span>, or <span class="leader">Enchantress</span>.',
+      bonus: '+30 avec la <span class="leader">Princesse</span>. <br />OU +15 avec l\'<span class="leader">Impératrice</span>, la <span class="leader">Reine</span>, ou l\'<span class="leader">Enchanteresse</span>.',
       penalty: null,
       bonusScore: function(hand) {
-        return hand.contains('Princess') ? 30 : (hand.contains('Empress') || hand.contains('Queen') || hand.contains('Enchantress')) ? 15 : 0;
+        return hand.contains('Princesse') ? 30 : (hand.contains('Impératrice') || hand.contains('Reine') || hand.contains('Enchanteresse')) ? 15 : 0;
       },
       relatedSuits: [],
-      relatedCards: ['Princess', 'Empress', 'Queen', 'Enchantress']
+      relatedCards: ['Princesse', 'Impératrice', 'Reine', 'Enchanteresse']
     },
     {
       id: 37,
-      suit: 'Beast',
-      name: 'Basilisk',
+      suit: 'Créature',
+      name: 'Basilik',
       strength: 35,
       bonus: null,
-      penalty: 'BLANKS all <span class="army">Armies</span>, <span class="leader">Leaders</span>, and other <span class="beast">Beasts</span>.',
+      penalty: 'MASQUE toutes les <span class="leader">Seigneurs</span>, <span class="army">Armées</span>, et les autres <span class="beast">Créatures</span>.',
       blanks: function(card, hand) {
-        return (card.suit === 'Army' && !hand.containsId(25)) || // clears the word 'Army' from the penalty
-          card.suit === 'Leader' ||
-          (card.suit === 'Beast' && card.id !== this.id);
+        return (card.suit === 'Armée' && !hand.containsId(25)) || // clears the word 'Armée' from the penalty
+          card.suit === 'Seigneur' ||
+          (card.suit === 'Créature' && card.id !== this.id);
       },
-      relatedSuits: ['Army', 'Leader', 'Beast'],
+      relatedSuits: ['Armée', 'Seigneur', 'Créature'],
       relatedCards: []
     },
     {
       id: 38,
-      suit: 'Beast',
-      name: 'Warhorse',
+      suit: 'Créature',
+      name: 'Cheval de Guerre',
       strength: 6,
-      bonus: '+14 with any <span class="leader">Leader</span> or <span class="wizard">Wizard</span>.',
+      bonus: '+14 avec n\'importe quel <span class="leader">Seigneur</span> ou <span class="wizard">Sorcier</span>.',
       penalty: null,
       bonusScore: function(hand) {
-        return hand.containsSuit('Leader') || hand.containsSuit('Wizard') ? 14 : 0;
+        return hand.containsSuit('Seigneur') || hand.containsSuit('Sorcier') ? 14 : 0;
       },
-      relatedSuits: ['Leader', 'Wizard'],
+      relatedSuits: ['Seigneur', 'Sorcier'],
       relatedCards: []
     },
     {
       id: 39,
-      suit: 'Beast',
+      suit: 'Créature',
       name: 'Dragon',
       strength: 30,
       bonus: null,
-      penalty: '-40 unless with at least one <span class="wizard">Wizard</span>.',
+      penalty: '-40 sauf avec au moins un <span class="wizard">Sorcier</span>.',
       penaltyScore: function(hand) {
-        return hand.containsSuit('Wizard') ? 0 : -40;
+        return hand.containsSuit('Sorcier') ? 0 : -40;
       },
-      relatedSuits: ['Wizard'],
+      relatedSuits: ['Sorcier'],
       relatedCards: []
     },
     {
       id: 40,
-      suit: 'Beast',
-      name: 'Hydra',
+      suit: 'Créature',
+      name: 'Hydre',
       strength: 12,
-      bonus: '+28 with <span class="flood">Swamp</span>.',
+      bonus: '+28 avec le <span class="flood">Marécage</span>.',
       penalty: null,
       bonusScore: function(hand) {
-        return hand.contains('Swamp') ? 28 : 0;
+        return hand.contains('Marécage') ? 28 : 0;
       },
       relatedSuits: [],
-      relatedCards: ['Swamp']
+      relatedCards: ['Marécage']
     },
     {
       id: 41,
-      suit: 'Weapon',
-      name: 'Warship',
+      suit: 'Arme',
+      name: 'Navire de Guerre',
       strength: 23,
-      bonus: 'CLEARS the word <span class="army">Army</span> from all Penalties of all <span class="flood">Floods</span>.',
-      penalty: 'BLANKED unless with at least one <span class="flood">Flood</span>.',
+      bonus: 'EFFACE le mot <span class="army">Armée</span> des malus de toutes les <span class="flood">Vagues</span>.',
+      penalty: 'MASQUÉE sauf avec au moins une <span class="flood">Vague</span>.',
       blankedIf: function(hand) {
-        return !hand.containsSuit('Flood');
+        return !hand.containsSuit('Vague');
       },
-      relatedSuits: ['Army', 'Flood'],
+      relatedSuits: ['Armée', 'Vague'],
       relatedCards: []
     },
     {
       id: 42,
-      suit: 'Weapon',
-      name: 'Magic Wand',
+      suit: 'Arme',
+      name: 'Baguette Magique',
       strength: 1,
-      bonus: '+25 with any one <span class="wizard">Wizard</span>.',
+      bonus: '+25 avec n\'importe quel <span class="wizard">Sorcier</span>.',
       penalty: null,
       bonusScore: function(hand) {
-        return hand.containsSuit('Wizard') ? 25 : 0;
+        return hand.containsSuit('Sorcier') ? 25 : 0;
       },
-      relatedSuits: ['Wizard'],
+      relatedSuits: ['Sorcier'],
       relatedCards: []
     },
     {
       id: 43,
-      suit: 'Weapon',
-      name: 'Sword of Keth',
+      suit: 'Arme',
+      name: 'Épée de Keth',
       strength: 7,
-      bonus: '+10 with any one <span class="leader">Leader</span>. <br />OR +40 with both <span class="leader">Leader</span> and <span class="artifact">Shield of Keth</span>.',
+      bonus: '+10 avec n\'importe quel <span class="leader">Seigneur</span>. <br />OU +40 avec un <span class="leader">Seigneur</span> et le <span class="artifact">Bouclier de Keth</span>.',
       penalty: null,
       bonusScore: function(hand) {
-        return hand.containsSuit('Leader') ? (hand.contains('Shield of Keth') ? 40 : 10) : 0;
+        return hand.containsSuit('Seigneur') ? (hand.contains('Bouclier de Keth') ? 40 : 10) : 0;
       },
-      relatedSuits: ['Leader'],
-      relatedCards: ['Shield of Keth']
+      relatedSuits: ['Seigneur'],
+      relatedCards: ['Bouclier de Keth']
     },
     {
       id: 44,
-      suit: 'Weapon',
-      name: 'Elven Longbow',
+      suit: 'Arme',
+      name: 'Arc Elfique',
       strength: 3,
-      bonus: '+30 with <span class="army">Elven Archers</span>, <span class="leader">Warlord</span> or <span class="wizard">Beastmaster</span>.',
+      bonus: '+30 avec les <span class="army">Archers Elfes</span>, le <span class="leader">Chef de Guerre</span> ou le <span class="wizard">Dresseur</span>.',
       penalty: null,
       bonusScore: function(hand) {
-        return hand.contains('Elven Archers') || hand.contains('Warlord') || hand.contains('Beastmaster') ? 30 : 0;
+        return hand.contains('Archers Elfes') || hand.contains('Chef de Guerre') || hand.contains('Dresseur') ? 30 : 0;
       },
       relatedSuits: [],
-      relatedCards: ['Elven Archers', 'Warlord', 'Beastmaster']
+      relatedCards: ['Archers Elfes', 'Chef de Guerre', 'Dresseur']
     },
     {
       id: 45,
-      suit: 'Weapon',
-      name: 'War Dirigible',
+      suit: 'Arme',
+      name: 'Dirigeable',
       strength: 35,
       bonus: null,
-      penalty: 'BLANKED unless with at least one <span class="army">Army</span>. <br />BLANKED with any <span class="weather">Weather</span>.',
+      penalty: 'MASQUÉE sauf avec au moins une <span class="army">Armée</span>. <br />MASQUÉE avec n\'importe quel <span class="weather">Climat</span>.',
       blankedIf: function(hand) {
-        return !hand.containsSuit('Army') || hand.containsSuit('Weather');
+        return !hand.containsSuit('Armée') || hand.containsSuit('Climat');
       },
-      relatedSuits: ['Army', 'Weather'],
+      relatedSuits: ['Armée', 'Climat'],
       relatedCards: []
     },
     {
       id: 46,
-      suit: 'Artifact',
-      name: 'Shield of Keth',
+      suit: 'Artéfact',
+      name: 'Bouclier de Keth',
       strength: 4,
-      bonus: '+15 with any one <span class="leader">Leader</span>. <br />OR +40 with both <span class="leader">Leader</span> and <span class="weapon">Sword of Keth</span>.',
+      bonus: '+15 avec n\'importe quel <span class="leader">Seigneur</span>. <br />OU +40 avec un <span class="leader">Seigneur</span> et l\'<span class="weapon">Épée Keth</span>.',
       penalty: null,
       bonusScore: function(hand) {
-        return hand.containsSuit('Leader') ? (hand.contains('Sword of Keth') ? 40 : 15) : 0;
+        return hand.containsSuit('Seigneur') ? (hand.contains('Épée de Keth') ? 40 : 15) : 0;
       },
-      relatedSuits: ['Leader'],
-      relatedCards: ['Sword of Keth']
+      relatedSuits: ['Seigneur'],
+      relatedCards: ['Épée de Keth']
     },
     {
       id: 47,
-      suit: 'Artifact',
-      name: 'Gem of Order',
+      suit: 'Artéfact',
+      name: 'Gemme de Loi',
       strength: 5,
-      bonus: '+10 for 3-card run, +30 for 4-card run, +60 for 5-card run, +100 for 6-card run, +150 for 7-card run. <br />(This refers to the base strength numbers.)',
+      bonus: '+10 pour une suite 3 cartes, +30 pour une suite 4 cartes, +60 pour une suite 5 cartes, +100 pour une suite 6 cartes, +150 pour une suite 7 cartes. <br />(En référence à la force de base des cartes.)',
       penalty: null,
       bonusScore: function(hand) {
         var strengths = hand.nonBlankedCards().map(card => card.strength);
@@ -701,10 +701,10 @@ var deck = {
     },
     {
       id: 48,
-      suit: 'Artifact',
-      name: 'World Tree',
+      suit: 'Artéfact',
+      name: 'Arbre-Monde',
       strength: 2,
-      bonus: '+50 if every non-BLANKED card is a different suit.',
+      bonus: '+50 si toutes les cartes non-MASQUÉES appartiennent à des familles différentes.',
       penalty: null,
       bonusScore: function(hand) {
         var suits = [];
@@ -721,21 +721,21 @@ var deck = {
     },
     {
       id: 49,
-      suit: 'Artifact',
-      name: 'Book of Changes',
+      suit: 'Artéfact',
+      name: 'Livre des Mutations',
       strength: 3,
-      bonus: 'You may change the suit of one other card. Its name, bonuses and penalties remain the same.',
+      bonus: 'Vous pouvez changer la famille d\'une autre carte. Son nom, ainsi que ses bonus et malus restent les mêmes.',
       penalty: null,
-      action: 'Pick a suit and a target card from your hand.',
-      relatedSuits: [], // empty because the main reason for relatedSuits is to determine how to use 'Book of Changes'
+      action: 'Choisissez une famille et une carte de votre main.',
+      relatedSuits: [], // empty because the main reason for relatedSuits is to determine how to use 'Livre des Mutations'
       relatedCards: []
     },
     {
       id: 50,
-      suit: 'Artifact',
-      name: 'Protection Rune',
+      suit: 'Artéfact',
+      name: 'Rune de Protection',
       strength: 1,
-      bonus: 'CLEARS the Penalty on all cards.',
+      bonus: 'EFFACE le malus de toutes les cartes.',
       penalty: null,
       clearsPenalty: function(card) {
         return true;
@@ -745,43 +745,43 @@ var deck = {
     },
     {
       id: 51,
-      suit: 'Wild',
-      name: 'Shapeshifter',
+      suit: 'Joker',
+      name: 'Métamorphe',
       strength: 0,
-      bonus: '<b>Shapeshifter</b> may duplicate the name and suit of any one <span class="artifact">Artifact</span>, <span class="leader">Leader</span>, <span class="wizard">Wizard</span>, <span class="weapon">Weapon</span> or <span class="beast">Beast</span> in the game. <br />Does not take the bonus, penalty, or base strength of the card duplicated.',
+      bonus: 'Peut copier le nom et la famille de n\'importe quel <span class="artifact">Artéfact</span>, <span class="leader">Seigneur</span>, <span class="wizard">Sorcier</span>, <span class="weapon">Armée</span> ou <span class="beast">Créature</span> du jeu. <br />N\'appliquez ni le bonus, ni le malus, ni la force de base de la carte copiée.',
       penalty: null,
-      action: 'Pick a target card to duplicate.',
-      relatedSuits: ['Artifact', 'Leader', 'Wizard', 'Weapon', 'Beast'].sort(),
+      action: 'Choisissez une carte du jeu à copier.',
+      relatedSuits: ['Artéfact', 'Seigneur', 'Sorcier', 'Arme', 'Créature'].sort(),
       relatedCards: []
     },
     {
       id: 52,
-      suit: 'Wild',
+      suit: 'Joker',
       name: 'Mirage',
       strength: 0,
-      bonus: '<b>Mirage</b> may duplicate the name and suit of any one <span class="army">Army</span>, <span class="land">Land</span>, <span class="weather">Weather</span>, <span class="flood">Flood</span> or <span class="flame">Flame</span> in the game. <br />Does not take the bonus, penalty, or base strength of the card duplicated.',
+      bonus: 'Peut copier le nom et la famille de n\'importe quel <span class="land">Terrain</span>, <span class="army">Armée</span>, <span class="weather">Climat</span>, <span class="flood">Vague</span> ou <span class="flame">Flamme</span> du jeu. <br />N\'appliquez ni le bonus, ni le malus, ni la force de base de la carte copiée.',
       penalty: null,
-      action: 'Pick a target card to duplicate.',
-      relatedSuits: ['Army', 'Land', 'Weather', 'Flood', 'Flame'].sort(),
+      action: 'Choisissez une carte du jeu à copier.',
+      relatedSuits: ['Armée', 'Terrain', 'Climat', 'Vague', 'Flamme'].sort(),
       relatedCards: []
     },
     {
       id: 53,
-      suit: 'Wild',
+      suit: 'Joker',
       name: 'Doppelgänger',
       strength: 0,
-      bonus: '<b>Doppelgänger</b> may duplicate the name, base strength, suit, and penalty BUT NOT BONUS of any one other card in your hand.',
+      bonus: 'Peut copier le nom, la force de base, la famille et le malus MAIS PAS LE BONUS de n\'importe quelle autre carte de votre main.',
       penalty: null,
-      action: 'Pick a card from your hand to duplicate.',
+      action: 'Choisissez une carte de votre main à copier.',
       relatedSuits: [],
       relatedCards: []
     },
     {
       id: 54,
-      suit: 'Wizard',
+      suit: 'Sorcier',
       name: 'Jester',
       strength: 3,
-      bonus: '+3 for each other card with an odd base value. <br />OR +50 if entire hand has odd base values.',
+      bonus: '+3 pour chaque autre carte avec une force de base impaire. <br />OU +50 si toutes les cartes non-MASQUÉES de votre main ont une force de base impaire.',
       penalty: null,
       bonusScore: function(hand) {
         var oddCount = 0;
@@ -829,7 +829,7 @@ var deck = {
 };
 
 function allSuits() {
-  return ['Land', 'Flood', 'Weather', 'Flame', 'Army', 'Wizard', 'Leader', 'Beast', 'Weapon', 'Artifact', 'Wild'].sort();
+  return ['Terrain', 'Vague', 'Climat', 'Flamme', 'Armée', 'Sorcier', 'Seigneur', 'Créature', 'Arme', 'Artéfact', 'Joker'].sort();
 }
 
 var NONE = -1;
