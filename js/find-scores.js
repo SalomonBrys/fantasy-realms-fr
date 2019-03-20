@@ -157,9 +157,9 @@ function generateActionVariations(hand) {
             bookOfChangesActions.push([BOOK_OF_CHANGES, card.id, suit]);
           }
         }
-        if (!suitsOfInterest.has('Wild')) {
+        if (!suitsOfInterest.has('Joker')) {
           // turning a card into Wild may avoid a Penalty (there's never a Penalty for Wild suit)
-          bookOfChangesActions.push([BOOK_OF_CHANGES, card.id, 'Wild']);
+          bookOfChangesActions.push([BOOK_OF_CHANGES, card.id, 'Joker']);
         }
       }
     }
@@ -171,7 +171,7 @@ function generateActionVariations(hand) {
   if (hand.containsId(ISLAND)) {
     var islandActions = [];
     for (const card of hand.cards()) {
-      if (((card.suit === 'Flood' || card.suit === 'Flame' || hand.containsId(BOOK_OF_CHANGES)) && card.penalty) || card.id === DOPPELGANGER) {
+      if (((card.suit === 'Vague' || card.suit === 'Flamme' || hand.containsId(BOOK_OF_CHANGES)) && card.penalty) || card.id === DOPPELGANGER) {
         islandActions.push([ISLAND, + card.id]);
       }
     }
