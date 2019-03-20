@@ -56,7 +56,7 @@ function selectFromHand(id) {
   } else if (actionId === ISLAND) {
     var selectedCard = hand.getCardById(id);
     var island = hand.getCardById(ISLAND);
-    if (selectedCard.suit === 'Flood' || selectedCard.suit === 'Flame') {
+    if (selectedCard.suit === 'Vague' || selectedCard.suit === 'Flamme') {
       actionId = NONE;
       click.play();
       magic.play();

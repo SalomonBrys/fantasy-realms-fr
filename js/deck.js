@@ -130,7 +130,7 @@ var deck = {
       strength: 14,
       bonus: 'EFFACE les malus de n\'importe quelle <span class="flood">Vague</span> ou <span class="flame">Flamme</span>.',
       penalty: null,
-      action: 'Choisissez une Vague ou une Flame de votre main.',
+      action: 'Choisissez une Vague ou une Flamme de votre main.',
       relatedSuits: ['Vague', 'Flamme'],
       relatedCards: []
     },
