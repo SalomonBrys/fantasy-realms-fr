@@ -66,7 +66,7 @@
         <li class="list-group-item {{suit}} {{#if blanked}}blanked{{/if}}">
           <span class="badge badge-default">
             {{#if blanked}}
-              BLANKED
+              MASQUÉE
             {{else}}
               {{strength}}
             {{/if}}
@@ -95,7 +95,7 @@
         {{#if card.action}}
         <li class="list-group-item bonus">
             <span id="card-action-text-{{id}}" />
-            <button id="card-action-{{id}}" type="button" class="btn btn-sm btn-primary float-right" onclick="event.stopPropagation(); useCard({{id}});">Use</button>
+            <button id="card-action-{{id}}" type="button" class="btn btn-sm btn-primary float-right" onclick="event.stopPropagation(); useCard({{id}});">Utiliser</button>
         </li>
         {{/if}}
       </ul>
