@@ -748,7 +748,7 @@ var deck = {
       suit: 'Joker',
       name: 'Métamorphe',
       strength: 0,
-      bonus: 'Peut copier le nom et la famille de n\'importe quel <span class="artifact">Artéfact</span>, <span class="leader">Seigneur</span>, <span class="wizard">Sorcier</span>, <span class="weapon">Armée</span> ou <span class="beast">Créature</span> du jeu. <br />N\'appliquez ni le bonus, ni le malus, ni la force de base de la carte copiée.',
+      bonus: 'Peut copier le nom et la famille de n\'importe quel <span class="artifact">Artéfact</span>, <span class="leader">Seigneur</span>, <span class="wizard">Sorcier</span>, <span class="weapon">Arme</span> ou <span class="beast">Créature</span> du jeu. <br />N\'appliquez ni le bonus, ni le malus, ni la force de base de la carte copiée.',
       penalty: null,
       action: 'Choisissez une carte du jeu à copier.',
       relatedSuits: ['Artéfact', 'Seigneur', 'Sorcier', 'Arme', 'Créature'].sort(),
